@@ -184,8 +184,8 @@
                         <tr>
                             <th class="py-2 px-4"></th>
                             <th class="py-2 px-4">Page Name</th>
-                            <th class="py-2 px-4">Page Image</th>
-                            <th class="py-2 px-4">Content</th>
+                            <th class="py-2 px-4">Page Ihghggmage</th>
+                            <th class="py-2 px-4">Contendferfrft</th>
                         </tr>
                     </thead>
                     <tbody>
