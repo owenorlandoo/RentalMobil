@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('mobils', function (Blueprint $table) {
             $table->id();
+            $table->string('platNomor');
+            $table->string('merk');
+            $table->string('model');
+            $table->string('nama');
+            $table->integer('tahun');
+            $table->string('warna');
+            $table->integer('kapasitasPenumpang');
+            $table->string('transmission');
+            $table->string('mesin');
+            $table->integer('hargaRental');
+            $table->string('deskripsi');
+            $table->string('gambarMobil');
+            $table->boolean('statusKetersediaan');
             $table->timestamps();
         });
     }
