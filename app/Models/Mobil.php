@@ -43,10 +43,13 @@ class Mobil extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'statusKetersediaan' => 'boolean',
-        'tahun' => 'integer',
-        'kapasitasPenumpang' => 'integer',
-        'hargaRental' => 'integer',
+
+     protected $attributes = [
+        'statusKetersediaan' => 1, // Default to available
     ];
+     // Add a method to get the availability status as a string
+     public function getAvailabilityStatusAttribute()
+     {
+         return $this->statusKetersediaan ? 'Available' : 'Not Available';
+     }
 }

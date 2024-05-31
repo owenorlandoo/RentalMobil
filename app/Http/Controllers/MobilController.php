@@ -47,20 +47,27 @@ class MobilController extends Controller
         ]);
 
         if ($request->file('gambarMobil')) {
-            $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
+            $validateData['gambarMobil'] = $request->file('gambarMobil')->store('image', ['disk' => 'public']);
 
-            Produk::create([
-                'foto_produk' => $validateData['foto_produk'],
-                'nama_produk' => $validateData['nama_produk'],
-                'harga_produk' => $validateData['harga_produk'],
-                'deskripsi_produk'=> $validateData['deskripsi_produk'],
-                'category_id'=>  $validateData['category_id'],
-                'highlights_produk' => $request->has('highlights_produk')
+            Mobil::create([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
             ]);
         }
 
         
-        return redirect()->route('product_view');
+        return redirect()->route('mobil_view');
     }
 
     /**
@@ -69,6 +76,9 @@ class MobilController extends Controller
     public function show(Mobil $mobil)
     {
         //
+        $mobils = Mobil::all();
+       
+            return view('adminMobil',compact('mobils'));
     }
 
     /**
@@ -77,6 +87,13 @@ class MobilController extends Controller
     public function edit(Mobil $mobil)
     {
         //
+        $mobilEdit = Mobil::where('id', $mobil->id)->first();
+        
+        return view('adminMobilEdit', [
+            'pagetitle' => 'Edit Mobil',
+            'mobilEdit' => $mobilEdit,
+            
+        ]);
     }
 
     /**
@@ -85,6 +102,48 @@ class MobilController extends Controller
     public function update(Request $request, Mobil $mobil)
     {
         //
+        $validateData = $request->validate([
+            'gambarMobil' => 'image',
+            'platNomor'=>'required',
+            'merk'=>'required',
+            'model'=>'required',
+            'nama'=>'required',
+            'tahun'=>'required',
+            'warna'=>'required',
+            'kapasitasPenumpang'=>'required',
+            'transmission'=>'required',
+            'mesin'=>'required',
+            'hargaRental'=>'required',
+            'deskripsi'=>'required',
+            'statusKetersediaan'=>'required'
+
+        ]);
+
+        if ($request->file('gambarMobil')) {
+            if($mobil->gambarMobil){
+                Storage::disk('public')->delete($mobil->gambarMobil);
+            }
+            $validateData['gambarMobil'] = $request->file('gambarMobil')->store('image', ['disk' => 'public']);
+
+            Mobil::create([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
+            ]);
+        }
+
+        
+        return redirect()->route('mobil_view');
     }
 
     /**
@@ -93,5 +152,34 @@ class MobilController extends Controller
     public function destroy(Mobil $mobil)
     {
         //
+        if($mobil->gambarMobil){
+            if(Storage::disk('public')->exists($mobil->gambarMobil)){
+                Storage::disk('public')->delete($mobil->gambarMobil);
+            }
+        }
+        $mobil->delete();
+
+        return redirect()->route('mobil_view');
+    }
+
+    public function showMobilDetail($id)
+    {
+        $mobilDetail = Mobil::find($id);
+        
+
+        
+
+        if (!$mobilDetail) {
+            // Handle the case where the product with the given ID is not found.
+            // You might want to redirect back with an error message or take another appropriate action.
+            return redirect()->route('mobil_view')->with('error', 'Mobil not found.');
+        }
+
+        
+        return view('mobil detail', [
+            "pagetitle" => "Mobil Detail 🚗",
+            "mobilDetail" => $mobilDetail,
+            
+        ]);
     }
 }

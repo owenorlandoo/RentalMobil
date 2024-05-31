@@ -1,80 +1,141 @@
-
 @extends('layouts.template')
 
 @section('content')
-    <div class="container mx-auto mt-8">
-        <div class="bg-white p-6 rounded-md shadow-md">
-            <h1 class="text-3xl font-bold mb-4 text-center">Unit Mobil</h1>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-300">
-                    <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="py-2 px-4"></th>
-                            <th class="py-2 px-4">Foto Mobil</th>
-                            <th class="py-2 px-4">Plat Nomor</th>
-                            <th class="py-2 px-4">Nama</th>
-                            <th class="py-2 px-4">Merk</th>
-                            <th class="py-2 px-4">Model</th>
-                            <th class="py-2 px-4">Tahun</th>
-                            <th class="py-2 px-4">Warna</th>
-                            <th class="py-2 px-4">kapasitas Penumpang</th>
-                            <th class="py-2 px-4">Transmisi</th>
-                            <th class="py-2 px-4">Mesin</th>
-                            <th class="py-2 px-4">Harga Rental (per hari)</th>
-                            <th class="py-2 px-4">Deskripsi tambahan</th>
-                            <th class="py-2 px-4">Status Ketersediaan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-{{--
-                        @foreach ($mobils as $mobil)
+<div class="container mx-auto mt-8">
+    <div class="bg-white p-6 rounded-md shadow-md">
+        <h1 class="text-3xl font-bold mb-4 text-center">Unit Mobil</h1>
 
-                            <tr>
-                                <!-- <td class="py-2 px-4"><a href="/page/{{ $page->id }}"
-                                        class="text-blue-500 hover:underline">{{ $page->page_name }}</a></td> -->
-                                <td><img class="img-fluid w-25"
-                                        src="{{ asset('storage/' . $banner->banner_pict) }}" /></td>
-                                <td class="py-2 px-4">{{ $mobil->platNomor }}</td>
-                                <td class="py-2 px-4">{{ $mobil->nama }}</td>
-                                <td class="py-2 px-4">{{ $mobil->merk }}</td>
-                                <td class="py-2 px-4">{{ $mobil->model }}</td>
-                                <td class="py-2 px-4">{{ $mobil->tahun }}</td>
-                                <td class="py-2 px-4">{{ $mobil->warna }}</td>
-                                <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
-                                <td class="py-2 px-4">{{ $mobil->transmission }}</td>
-                                <td class="py-2 px-4">{{ $mobil->mesin }}</td>
-                                <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
-                                <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
-                                <!-- untuk boolean -->
-                                <td class="py-2 px-4">{{ $mobil->statusKetersediaan }}</td> 
+        <div class="col-sm-6">
+            <a href="#createCar" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Car</span></a>
+        </div>
 
-                                <td>
-                                            <div class="d-flex align-items-center">
-                                                {{-- <a href="{{ route('banner_edit', $banner) }}">
-                                                    <button class="btn btn-info" id="edit" name="edit">Edit</button>
-                                                </a> --}}
-                                                <a href="{{ route('banner_edit', $banner) }}" class="edit">
-                                                    <i class="material-icons" data-toggle="tooltip"
-                                                        title="Edit">&#xE254;</i>
-                                                </a>
-                                                <form action="{{ route('banner_destroy', $banner) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button class="delete" data-toggle="modal" id="delete"
-                                                        name="delete">
-                                                        <i class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-
-                            </tr>
-                        @endforeach --}}
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        
+                        <th class="py-2 px-4">Foto Mobil</th>
+                        <th class="py-2 px-4">Plat Nomor</th>
+                        <th class="py-2 px-4">Nama</th>
+                        <th class="py-2 px-4">Merk</th>
+                        <th class="py-2 px-4">Model</th>
+                        <th class="py-2 px-4">Tahun</th>
+                        <th class="py-2 px-4">Warna</th>
+                        <th class="py-2 px-4">kapasitas Penumpang</th>
+                        <th class="py-2 px-4">Transmisi</th>
+                        <th class="py-2 px-4">Mesin</th>
+                        <th class="py-2 px-4">Harga Rental (per hari)</th>
+                        <th class="py-2 px-4">Deskripsi tambahan</th>
+                        <th class="py-2 px-4">Status Ketersediaan</th>
+                        <th class="py-2 px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mobils as $mobil)
+                    <tr>
+                        <td><img class="img-fluid w-25" src="{{ asset('storage/' . $mobil->gambarMobil) }}" /></td>
+                        <td class="py-2 px-4">{{ $mobil->platNomor }}</td>
+                        <td class="py-2 px-4">{{ $mobil->nama }}</td>
+                        <td class="py-2 px-4">{{ $mobil->merk }}</td>
+                        <td class="py-2 px-4">{{ $mobil->model }}</td>
+                        <td class="py-2 px-4">{{ $mobil->tahun }}</td>
+                        <td class="py-2 px-4">{{ $mobil->warna }}</td>
+                        <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
+                        <td class="py-2 px-4">{{ $mobil->transmission }}</td>
+                        <td class="py-2 px-4">{{ $mobil->mesin }}</td>
+                        <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
+                        <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
+                        <td class="py-2 px-4">{{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}</td>
+                        
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+<!-- Create Modal HTML -->
+<div id="createCar" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('mobil_store') }}" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Car</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="gambarMobil" class="form-label">Upload Car Image</label>
+                        <input class="form-control" type="file" name="gambarMobil" id="gambarMobil" accept="image/jpg, image/png, image/jpeg" onchange="previewImage()">
+                        <img class="img-preview img-fluid mb-3 col-sm-5" src="" alt="">
+                    </div>
+                    <div class="form-group">
+                        <label for="platNomor" class="form-label">Plat Nomor</label>
+                        <input type="text" class="form-control" name="platNomor" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input type="text" class="form-control" name="nama" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="merk" class="form-label">Merk</label>
+                        <input type="text" class="form-control" name="merk" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="model" class="form-label">Model</label>
+                        <input type="text" class="form-control" name="model" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun" class="form-label">Tahun</label>
+                        <input type="number" class="form-control" name="tahun" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="warna" class="form-label">Warna</label>
+                        <input type="text" class="form-control" name="warna" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kapasitasPenumpang" class="form-label">Kapasitas Penumpang</label>
+                        <input type="number" class="form-control" name="kapasitasPenumpang" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transmission" class="form-label">Transmisi</label>
+                        <input type="text" class="form-control" name="transmission" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mesin" class="form-label">Mesin</label>
+                        <input type="text" class="form-control" name="mesin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hargaRental" class="form-label">Harga Rental (per hari)</label>
+                        <input type="number" class="form-control" name="hargaRental" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsi" class="form-label">Car Description</label>
+                        <textarea class="form-control" name="deskripsi" required></textarea>
+                    </div>
+                    <div class="form-group">
+                            <label for="statusKetersediaan">Ketersediaan Mobil</label>
+                            <input type="hidden" name="statusKetersediaan" value="0">
+                            <input class="form-check-input" type="checkbox" name="statusKetersediaan" id="statusKetersediaan" value="1">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
