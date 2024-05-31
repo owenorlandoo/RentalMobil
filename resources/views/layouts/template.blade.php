@@ -32,44 +32,42 @@
                 @endguest
             </div>
             <ul class="flex space-x-4">
-                {{-- @auth --}}
-                    <li class="nav-item">
-                        <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                            href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                            href="view_products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                            href="view_article">Article</a>
-                    </li>
-                    {{-- @if (Auth::user()->isAdmin()) --}}
-                        <li class="nav-item">
-                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="adminMobil">Unit Mobil</a>
-                        </li>
+                <li class="nav-item">
+                    <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                        href="/">Home</a>
+                </li>
 
+                @auth
+                    @if (Auth::user()->role === 'admin')
                         <!-- <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_store">Store</a>
+                                href="adminMobil">Unit Mobil</a>
                         </li> -->
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                                 href="adminPesanan">Pesanan Kostumer</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_brand">Brand</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_category">Category</a>
-                        </li>
-                    {{-- @endif
+                    @endif
 
-                @endauth --}}
+                    @if (Auth::user()->role === 'owner')
+                        <li class="nav-item">
+                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                                href="adminMobil">Unit Mobil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                                href="adminPesanan">Pesanan Kostumer</a>
+                        </li>
+                    @endif
+
+                    @if (Auth::user()->role === 'customer')
+                        <!-- Tautan khusus customer -->
+                        <li class="nav-item">
+                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                                href="view_products">Lihat Mobil</a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
     </nav>

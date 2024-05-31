@@ -27,15 +27,23 @@ class AdminController extends Controller
 
     function admin()
     {
-        echo "Helo, selamat datang Admin";
-        echo "<h1>". Auth::user()->name ."</h1>";
-        echo "<a href='/logout'>Logout >></a>";
+        // echo "Helo, selamat datang Admin";
+        // echo "<h1>". Auth::user()->name ."</h1>";
+        // echo "<a href='/logout'>Logout >></a>";
+        return view('welcome')->with('user', Auth::user());
     }
 
     function owner()
     {
-        echo "Helo, selamat datang Owner";
-        echo "<h1>". Auth::user()->name ."</h1>";
-        echo "<a href='/logout'>Logout >></a>";
+        // echo "Helo, selamat datang Owner";
+        // echo "<h1>". Auth::user()->name ."</h1>";
+        // echo "<a href='/logout'>Logout >></a>";
+        return view('welcome')->with('user', Auth::user());
+    }
+
+    function adminMobil()
+    {
+        
+        return view('adminMobil')->with('user', Auth::user());
     }
 }
