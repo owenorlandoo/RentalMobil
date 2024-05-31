@@ -22,4 +22,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/admin', [AdminController::class,'admin']);
     Route::get('/admin/owner', [AdminController::class,'owner']);
     Route::get('/logout', [SesiController::class,'logout']);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> ce2b3fc51bd0efb9746a5d46a800fd99e082ed13
