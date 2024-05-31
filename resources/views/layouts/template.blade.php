@@ -13,7 +13,7 @@
     <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                {{-- @guest
+                @guest
                     @if (Route::has('login'))
                         <a class="text-white hover:text-green-300 transition duration-300 ease-in-out hover:animate-pulse"
                             href="{{ route('login') }}">Login</a>
@@ -26,14 +26,10 @@
                 @else
                     <div class="flex items-center space-x-4">
                         <span class="text-blue-300 text-xl mr-4">Welcome, {{ Auth::user()->name }}</span>
-                        <a class="text-white hover:text-red-500 transition duration-300 ease-in-out hover:animate-pulse"
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        
+                        <a href="{{ url('/logout') }}" class="text-white">Logout >></a>
                     </div>
-                @endguest --}}
+                @endguest
             </div>
             <ul class="flex space-x-4">
                 {{-- @auth --}}
@@ -77,6 +73,12 @@
             </ul>
         </div>
     </nav>
+
+    <!-- <div class="container mx-auto mt-5">
+        <h1>Hello, selamat datang Customer</h1>
+        <h1>{{ Auth::user()->name }}</h1>
+        <a href="{{ url('/logout') }}">Logout >></a>
+    </div> -->
 
     <div class="container mx-auto mt-5">
         @yield('content')
