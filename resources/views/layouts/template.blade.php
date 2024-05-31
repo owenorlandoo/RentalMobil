@@ -77,8 +77,6 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container mx-auto mt-5">
         @yield('content')
     </div>
 </body>
