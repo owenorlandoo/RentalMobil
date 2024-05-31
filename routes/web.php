@@ -16,7 +16,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('/register', [RegisterController::class, 'index']); 
 
-Route::middleware('CekLevel:admin')->group (function(){
+Route::middleware('ceklevel:admin')->group (function(){
     Route::get('/', function () {
         return view('home');
     });

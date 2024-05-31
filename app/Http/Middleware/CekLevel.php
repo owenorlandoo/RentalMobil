@@ -12,12 +12,15 @@ class CekLevel
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  mixed  ...$levels
+     * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$levels)
     {
-        if (in_array($request->user()->level,$levels)){
+        if (in_array($request->user()->level, $levels)) {
             return $next($request);
         }
+
         return redirect('/');
     }
 }
