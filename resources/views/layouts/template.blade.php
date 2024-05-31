@@ -52,16 +52,16 @@
                     {{-- @if (Auth::user()->isAdmin()) --}}
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_page">Page</a>
+                                href="adminMobil">Unit Mobil</a>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                                 href="view_store">Store</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_sales">Sales</a>
+                                href="adminPesanan">Pesanan Kostumer</a>
                         </li>
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
