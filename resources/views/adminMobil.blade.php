@@ -57,7 +57,9 @@
                         
                         <td>
                             <div class="d-flex align-items-center">
-                               
+                            <a href="{{ route('mobil_edit', ['mobil' => $mobil->id]) }}" class="edit">
+                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                </a>
                                 <form action="{{ route('mobil_destroy', ['mobil' => $mobil->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
