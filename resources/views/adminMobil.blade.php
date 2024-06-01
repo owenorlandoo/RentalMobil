@@ -55,6 +55,18 @@
                         <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
                         <td class="py-2 px-4">{{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}</td>
                         
+                        <td>
+                            <div class="d-flex align-items-center">
+                               
+                                <form action="{{ route('mobil_destroy', ['mobil' => $mobil->id]) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="delete" data-toggle="modal" id="delete" name="delete">
+                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

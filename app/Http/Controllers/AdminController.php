@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MobilController;
 use App\Models\Mobil;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -49,10 +50,10 @@ class AdminController extends Controller
 
     function adminMobil()
     {
-        $mobils = Mobil::all();
+        $mobil = Mobil::all();
         return view('adminMobil')->with([
             'user' => Auth::user(),
-            'mobils' => $mobils,
+            'mobils' => $mobil,
         ]);
     }
 
@@ -153,4 +154,7 @@ class AdminController extends Controller
             "mobilDetail" => $mobilDetail
         ]);
     }
+
+    
+
 }
