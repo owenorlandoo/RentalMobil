@@ -59,13 +59,13 @@ class AdminController extends Controller
 
     public function createMobil()
     {
-        return view('adminMobilCreate');
+        //return view('adminMobilCreate');
     }
 
     public function storeMobil(Request $request)
     {
         $validateData = $request->validate([
-            'gambarMobil' => 'required|image',
+            'gambarMobil' => 'image',
             'platNomor' => 'required|string',
             'nama' => 'required|string',
             'merk' => 'required|string',
@@ -84,7 +84,37 @@ class AdminController extends Controller
         if ($request->file('gambarMobil')) {
             $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
 
-            Mobil::create($validateData);
+            Mobil::create([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
+            ]);
+        } else {
+            Mobil::create([
+                //'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
+            ]);
         }
 
         return redirect()->route('adminMobil');
@@ -101,7 +131,7 @@ class AdminController extends Controller
     public function updateMobil(Request $request, Mobil $mobil)
     {
         $validateData = $request->validate([
-            'gambarMobil' => 'sometimes|image',
+            'gambarMobil' => 'image',
             'platNomor' => 'required|string',
             'nama' => 'required|string',
             'merk' => 'required|string',
@@ -122,6 +152,38 @@ class AdminController extends Controller
                 Storage::disk('public')->delete($mobil->gambarMobil);
             }
             $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
+
+            $mobil->update([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
+            ]);
+        } else {
+            $mobil->update([
+                //'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => $request->has('statusKetersediaan')
+            ]);
         }
 
         $mobil->update($validateData);

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('mesin');
             $table->integer('hargaRental');
             $table->string('deskripsi');
-            $table->string('gambarMobil');
+            $table->string('gambarMobil')->nullable();
             $table->boolean('statusKetersediaan');
             $table->timestamps();
         });

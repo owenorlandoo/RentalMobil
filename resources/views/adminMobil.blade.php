@@ -41,7 +41,14 @@
                 <tbody>
                     @foreach ($mobils as $mobil)
                     <tr>
-                        <td><img class="img-fluid w-25" src="{{ asset('storage/' . $mobil->gambarMobil) }}" /></td>
+                        <td>
+                            @if($mobil->gambarMobil)
+                            <img class="img-fluid w-25" src="{{ asset('storage/' . $mobil->gambarMobil) }}" alt="{{ $mobil->nama }}" />
+
+                            @else
+                            <img class="img-fluid w-25" src="{{ asset('image/Not Available.jpeg') }}" alt="{{ $mobil->nama }}" />
+                            @endif
+                        </td>
                         <td class="py-2 px-4">{{ $mobil->platNomor }}</td>
                         <td class="py-2 px-4">{{ $mobil->nama }}</td>
                         <td class="py-2 px-4">{{ $mobil->merk }}</td>
@@ -152,4 +159,21 @@
         </div>
     </div>
 </div>
+
+{{-- javascript for input image preview --}}
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#gambarMobil');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const ofReader = new FileReader();
+            ofReader.readAsDataURL(image.files[0]);
+
+            ofReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection
