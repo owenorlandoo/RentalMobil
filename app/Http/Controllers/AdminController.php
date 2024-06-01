@@ -77,9 +77,10 @@ class AdminController extends Controller
             'mesin' => 'required|string',
             'hargaRental' => 'required|integer',
             'deskripsi' => 'required|string',
+            'statusKetersediaan' => 'boolean',
         ]);
 
-        $validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
+        //$validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
 
         if ($request->file('gambarMobil')) {
             $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
@@ -97,7 +98,7 @@ class AdminController extends Controller
                 'mesin'=>  $validateData['mesin'],
                 'hargaRental'=>  $validateData['hargaRental'],
                 'deskripsi'=>  $validateData['deskripsi'],
-                'statusKetersediaan' => $request->has('statusKetersediaan')
+                'statusKetersediaan' => true
             ]);
         } else {
             Mobil::create([
@@ -113,7 +114,7 @@ class AdminController extends Controller
                 'mesin'=>  $validateData['mesin'],
                 'hargaRental'=>  $validateData['hargaRental'],
                 'deskripsi'=>  $validateData['deskripsi'],
-                'statusKetersediaan' => $request->has('statusKetersediaan')
+                'statusKetersediaan' => true
             ]);
         }
 
@@ -143,9 +144,10 @@ class AdminController extends Controller
             'mesin' => 'required|string',
             'hargaRental' => 'required|integer',
             'deskripsi' => 'required|string',
+            'statusKetersediaan' => 'boolean',
         ]);
 
-        $validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
+        //$validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
 
         if ($request->file('gambarMobil')) {
             if ($mobil->gambarMobil) {
@@ -166,7 +168,7 @@ class AdminController extends Controller
                 'mesin'=>  $validateData['mesin'],
                 'hargaRental'=>  $validateData['hargaRental'],
                 'deskripsi'=>  $validateData['deskripsi'],
-                'statusKetersediaan' => $request->has('statusKetersediaan')
+                'statusKetersediaan' => false
             ]);
         } else {
             $mobil->update([
@@ -182,7 +184,7 @@ class AdminController extends Controller
                 'mesin'=>  $validateData['mesin'],
                 'hargaRental'=>  $validateData['hargaRental'],
                 'deskripsi'=>  $validateData['deskripsi'],
-                'statusKetersediaan' => $request->has('statusKetersediaan')
+                'statusKetersediaan' => false
             ]);
         }
 

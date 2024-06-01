@@ -60,7 +60,10 @@
                         <td class="py-2 px-4">{{ $mobil->mesin }}</td>
                         <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
                         <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
-                        <td class="py-2 px-4">{{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}</td>
+                        <td class="py-2 px-4 {{ $mobil->statusKetersediaan ? 'text-green-500' : 'text-red-500' }}">
+                            {{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}
+                        </td>
+
                         
                         <td>
                             <div class="d-flex align-items-center">
@@ -105,7 +108,7 @@
                         <input type="text" class="form-control" name="platNomor" required>
                     </div>
                     <div class="form-group">
-                        <label for="nama" class="form-label">Nama</label>
+                        <label for="nama" class="form-label">Nama Mobil</label>
                         <input type="text" class="form-control" name="nama" required>
                     </div>
                     <div class="form-group">
@@ -144,11 +147,18 @@
                         <label for="deskripsi" class="form-label">Car Description</label>
                         <textarea class="form-control" name="deskripsi" required></textarea>
                     </div>
-                    <div class="form-group">
-                            <label for="statusKetersediaan">Ketersediaan Mobil</label>
-                            <input type="hidden" name="statusKetersediaan" value="0">
-                            <input class="form-check-input" type="checkbox" name="statusKetersediaan" id="statusKetersediaan" value="1">
+                    <!-- <div class="form-check">
+                        <input class="form-check-input" type="radio" name="statusKetersediaan" id="1" value="1">
+                        <label class="form-check-label" for="1">
+                            Available
+                        </label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="statusKetersediaan" id="0" value="0">
+                        <label class="form-check-label" for="0">
+                            Not Available
+                        </label>
+                    </div> -->
 
                 </div>
                 <div class="modal-footer">
