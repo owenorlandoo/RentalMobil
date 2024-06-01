@@ -64,7 +64,7 @@
                         <!-- Tautan khusus customer -->
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="view_products">Lihat Mobil</a>
+                                href="view_products">Mobil</a>
                         </li>
                     @endif
                 @endauth

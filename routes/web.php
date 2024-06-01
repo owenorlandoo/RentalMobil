@@ -28,3 +28,7 @@ Route::middleware(['auth'])->group(function(){
 Route::get('adminMobil', function () {
     return view('adminMobil');
 });
+
+Route::get('view_products', function () {
+    return view('view_products');
+});
