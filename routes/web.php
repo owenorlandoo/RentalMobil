@@ -18,11 +18,12 @@ Route::middleware(['guest'])->group(function(){
 // }
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/admin', [AdminController::class,'index']);
+    Route::get('/admin', [AdminController::class,'index'])->name('adminHome');
     Route::get('/admin/customer', [AdminController::class,'customer']);
     Route::get('/admin/admin', [AdminController::class,'admin']);
     Route::get('/admin/owner', [AdminController::class,'owner']);
-    Route::get('/admin/adminMobil', [AdminController::class,'adminMobil'])->name('adminMobil');;
+    Route::get('/admin/adminMobil', [AdminController::class,'adminMobil'])->name('adminMobil');
+    Route::get('/admin/customerMobil', [AdminController::class,'customerMobil'])->name('customerMobil');
     Route::get('/logout', [SesiController::class,'logout']);
 
     //product feature CRUD
@@ -30,7 +31,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/mobil/{mobil}/edit', [AdminController::class, 'editMobil'])->name('mobil_edit');
     Route::post('/admin/mobil', [AdminController::class, 'storeMobil'])->name('mobil_store');
     Route::put('/mobil_update/{mobil}', [AdminController::class,'updateMobil'])->name('mobil_update');
-    Route::get('mobil_view',[AdminController::class,'showMobilDetail'])->name('mobil_view');
+    Route::get('mobilDetail/{id}',[AdminController::class,'showMobilDetail'])->name('mobilDetail');
 }); 
 
 // Route::get('adminMobil', function () {

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\AntarAmbilType;
 
 return new class extends Migration
 {
@@ -13,6 +14,11 @@ return new class extends Migration
     {
         Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('nomorTlp');
+            $table->enum('antarAmbil', [AntarAmbilType::DIANTAR->value, AntarAmbilType::AMBIL_SENDIRI->value]);
+            $table->string('alamatPengantaran')->nullable();
             $table->date('tanggalMulai');
             $table->date('tanggalBerakhir');
             $table->integer('totalPembayaran');
@@ -22,7 +28,7 @@ return new class extends Migration
 
             //relasi one-to-many antara mobil dan pesanan
             $table->unsignedBigInteger('mobilID');
-            $table->foreign('mobilID')->references('mobilID')->on('mobils')->onDelete('cascade');
+            $table->foreign('mobilID')->references('id')->on('mobils')->onDelete('cascade');
         });
     }
 

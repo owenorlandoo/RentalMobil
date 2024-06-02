@@ -57,6 +57,16 @@ class AdminController extends Controller
         ]);
     }
 
+
+    function customerMobil()
+    {
+        $mobil = Mobil::all();
+        return view('customerMobil')->with([
+            'user' => Auth::user(),
+            'mobils' => $mobil,
+        ]);
+    }
+
     public function createMobil()
     {
         //return view('adminMobilCreate');
@@ -213,8 +223,7 @@ class AdminController extends Controller
             return redirect()->route('adminMobil')->with('error', 'Mobil not found.');
         }
 
-        return view('mobilDetail', [
-            "pagetitle" => "Mobil Detail 🚗",
+        return view('customerMobilDetail', [
             "mobilDetail" => $mobilDetail
         ]);
     }
