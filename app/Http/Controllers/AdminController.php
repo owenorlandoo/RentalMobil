@@ -232,15 +232,20 @@ class AdminController extends Controller
 
     // KHUSUS UNTUK Customer PESANAN
 
-    function formPesanan()
+    public function formPesanan($mobilId)
     {
+        $mobil = Mobil::find($mobilId);
 
-        
-        return view('formPesanan')->with('user', Auth::user());
+        return view('formPesanan')->with([
+            'user' => Auth::user(),
+            'mobil' => $mobil
+        ]);
     }
 
+
+
     //create new pesanan
-    public function storePesanan(Request $request, Mobil $mobil)
+    public function storePesanan(Request $request, $mobilID)
     {
         $validateData = $request->validate([
             'buktiTransfer' => 'nullable|image',
@@ -251,7 +256,8 @@ class AdminController extends Controller
             'tanggalBerakhir' => 'required|date',
             'antarAmbil' => 'required|in:diantar,ambil_sendiri',
             'alamatPengantaran' => 'nullable|required_if:antarAmbil,diantar|string',
-            'statusPesanan' => 'boolean'
+            'statusPesanan' => 'boolean',
+            'mobilID' => 'required'
         ]);
 
         // Menghitung durasi booking dalam hari
@@ -260,7 +266,8 @@ class AdminController extends Controller
         $durasi = $tanggalBerakhir->diff($tanggalMulai)->days;
 
         // Mendapatkan mobil terkait untuk mengambil hargaRental
-        $mobil = Mobil::findOrFail($request->input('id'));
+        $mobil = Mobil::findOrFail($mobilID);
+
 
         // Menghitung total pembayaran
         $validateData['totalPembayaran'] = $mobil->hargaRental * $durasi;
@@ -296,8 +303,29 @@ class AdminController extends Controller
             ]);
         }
 
-        return redirect()->route('formPesanan', [
-            'mobilId'=>$mobil
+        return redirect()->route('customerMobil', ['mobil' => $mobil->id]);
+    }
+
+    // UNTUK CUSTOMER BISA LIHAT PESANAN YANG DIBUAT
+    
+
+    // UNTUK ADMIN BISA LIHAT PESANAN YANG MASUK
+    function adminPesanan()
+    {
+        $pesanan = Pesanan::all();
+        return view('adminPesanan')->with([
+            'user' => Auth::user(),
+            'pesanans' => $pesanan,
         ]);
     }
+
+    public function updateStatusPesanan(Request $request, $id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->statusPesanan = $request->input('statusPesanan');
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diupdate.');
+    }
+
 }

@@ -91,12 +91,11 @@
                     </div>
                 </div>
                 @if($mobilDetail->statusKetersediaan)
-                <button class="btn btn-primary" type="button" onclick="window.location='{{ route('formPesanan') }}'">Book Now</button>
+                <button class="btn btn-primary" type="button" onclick="window.location='{{ route('formPesanan', ['mobilId' => $mobilDetail->id]) }}'">Book Now</button>
                 @else
                     <button class="btn btn-danger" type="button" disabled>Unavailable</button>
                 @endif
-                <input type="button" class="btn btn-default" onclick="window.location='{{ route('customerMobil') }}'"
-                    value="Cancel">
+                <input type="button" class="btn btn-default" onclick="window.location='{{ route('customerMobil') }}'" value="Cancel">
 
             </div>
         </div>

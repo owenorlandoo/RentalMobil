@@ -14,7 +14,7 @@
 @endphp
 
 
-<form action="{{ route('pesanan_store') }}" enctype="multipart/form-data" method="POST">
+<form action="{{ route('pesanan_store', ['mobilId' => $mobil->id]) }}" enctype="multipart/form-data" method="POST">
     @csrf
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -31,17 +31,16 @@
         <input type="text" class="form-control" id="nomorTlp" name="nomorTlp" required>
     </div>
     <div class="form-group">
-        <label for="inputState">Antar atau Ambil</label>
-        <select id="inputState" class="form-control" name="antarAmbil" required>
+        <label for="antarAmbil">Antar atau Ambil</label>
+        <select id="antarAmbil" class="form-control" name="antarAmbil" required>
             <option selected disabled>Choose...</option>
             @foreach(AntarAmbilType::cases() as $type)
                 <option value="{{ $type->value }}">{{ ucfirst(str_replace('_', ' ', $type->value)) }}</option>
             @endforeach
         </select>
     </div>
-    <div class="form-group" id="alamatPengantaranGroup" style="display:none;">
-        <label for="alamatPengantaran">Alamat Pengantaran (dikenakan biaya pengiriman juga | akan dikalkulasi setelah
-            mengirim mobilnya)</label>
+    <div class="form-group" id="alamatPengantaran" style="display:none;">
+        <label for="alamatPengantaran">Alamat Pengantaran (dikenakan biaya sebesar Rp20)</label>
         <input type="text" class="form-control" id="alamatPengantaran" name="alamatPengantaran"
             placeholder="Masukkan alamat pengantaran">
     </div>
@@ -68,10 +67,12 @@
     </div>
 
     <!-- untuk kalkulasi total pembayaran -->
-    <!-- <input type="hidden" id="mobilID" name="mobilID" value=""> -->
-    <!-- <input type="hidden" id="hargaRental" value=""> -->
+    <input type="hidden" id="mobilID" name="mobilID" value="{{ $mobil->id }}">
+    <input type="hidden" id="hargaRental" value="{{ $mobil->hargaRental }}">
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="submit" class="btn btn-success" value="Submit">
+    <input type="button" class="btn btn-default"
+        onclick="window.location='{{ route('mobilDetail', ['id' => $mobil->id]) }}'" value="Cancel">
 </form>
 
 
@@ -93,14 +94,14 @@
 </script>
 {{-- javascript for antar ambil option --}}
 <script>
-    document.getElementById('inputState').addEventListener('change', function () {
+    document.getElementById('antarAmbil').addEventListener('change', function () {
         var selectedOption = this.value;
-        var alamatPengantaranGroup = document.getElementById('alamatPengantaranGroup');
+        var alamatPengantaran = document.getElementById('alamatPengantaran');
 
         if (selectedOption === '{{ AntarAmbilType::DIANTAR->value }}') {
-            alamatPengantaranGroup.style.display = 'block';
+            alamatPengantaran.style.display = 'block';
         } else {
-            alamatPengantaranGroup.style.display = 'none';
+            alamatPengantaran.style.display = 'none';
         }
     });
 
@@ -117,12 +118,21 @@
 
             if (dayDifference > 0) {
                 var totalPembayaran = dayDifference * hargaRental;
+
+                // Cek apakah pengiriman dipilih
+                var antarAmbil = document.getElementById('antarAmbil').value;
+                if (antarAmbil === '{{ AntarAmbilType::DIANTAR->value }}') {
+                    // Tambah biaya pengiriman jika pengiriman dipilih
+                    totalPembayaran += 20; // Ganti 20 dengan biaya pengiriman yang sesuai
+                }
+
                 document.getElementById('totalPembayaran').value = totalPembayaran;
             } else {
                 document.getElementById('totalPembayaran').value = 'Invalid Dates';
             }
         }
     }
+
 
     document.getElementById('tanggalMulai').addEventListener('change', calculateTotalPayment);
     document.getElementById('tanggalBerakhir').addEventListener('change', calculateTotalPayment);
