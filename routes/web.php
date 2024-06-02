@@ -21,5 +21,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/customer', [AdminController::class,'customer']);
     Route::get('/admin/admin', [AdminController::class,'admin']);
     Route::get('/admin/owner', [AdminController::class,'owner']);
+    Route::get('/admin/adminMobil', [AdminController::class,'adminMobil']);
     Route::get('/logout', [SesiController::class,'logout']);
+}); 
+
+Route::get('adminMobil', function () {
+    return view('adminMobil');
 });
