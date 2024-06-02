@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MobilController;
 use App\Models\Mobil;
+use App\Models\Pesanan;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -14,7 +15,7 @@ class AdminController extends Controller
     function index()
     {
         echo "Helo, selamat datang";
-        echo "<h1>". Auth::user()->name ."</h1>";
+        echo "<h1>" . Auth::user()->name . "</h1>";
         echo "<a href='logout'>Logout >></a>";
         return view('welcome');
     }
@@ -99,15 +100,15 @@ class AdminController extends Controller
                 'gambarMobil' => $validateData['gambarMobil'],
                 'platNomor' => $validateData['platNomor'],
                 'merk' => $validateData['merk'],
-                'model'=> $validateData['model'],
-                'nama'=>  $validateData['nama'],
-                'tahun'=>  $validateData['tahun'],
-                'warna'=>  $validateData['warna'],
-                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
-                'transmission'=>  $validateData['transmission'],
-                'mesin'=>  $validateData['mesin'],
-                'hargaRental'=>  $validateData['hargaRental'],
-                'deskripsi'=>  $validateData['deskripsi'],
+                'model' => $validateData['model'],
+                'nama' => $validateData['nama'],
+                'tahun' => $validateData['tahun'],
+                'warna' => $validateData['warna'],
+                'kapasitasPenumpang' => $validateData['kapasitasPenumpang'],
+                'transmission' => $validateData['transmission'],
+                'mesin' => $validateData['mesin'],
+                'hargaRental' => $validateData['hargaRental'],
+                'deskripsi' => $validateData['deskripsi'],
                 'statusKetersediaan' => true
             ]);
         } else {
@@ -115,15 +116,15 @@ class AdminController extends Controller
                 //'gambarMobil' => $validateData['gambarMobil'],
                 'platNomor' => $validateData['platNomor'],
                 'merk' => $validateData['merk'],
-                'model'=> $validateData['model'],
-                'nama'=>  $validateData['nama'],
-                'tahun'=>  $validateData['tahun'],
-                'warna'=>  $validateData['warna'],
-                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
-                'transmission'=>  $validateData['transmission'],
-                'mesin'=>  $validateData['mesin'],
-                'hargaRental'=>  $validateData['hargaRental'],
-                'deskripsi'=>  $validateData['deskripsi'],
+                'model' => $validateData['model'],
+                'nama' => $validateData['nama'],
+                'tahun' => $validateData['tahun'],
+                'warna' => $validateData['warna'],
+                'kapasitasPenumpang' => $validateData['kapasitasPenumpang'],
+                'transmission' => $validateData['transmission'],
+                'mesin' => $validateData['mesin'],
+                'hargaRental' => $validateData['hargaRental'],
+                'deskripsi' => $validateData['deskripsi'],
                 'statusKetersediaan' => true
             ]);
         }
@@ -169,15 +170,15 @@ class AdminController extends Controller
                 'gambarMobil' => $validateData['gambarMobil'],
                 'platNomor' => $validateData['platNomor'],
                 'merk' => $validateData['merk'],
-                'model'=> $validateData['model'],
-                'nama'=>  $validateData['nama'],
-                'tahun'=>  $validateData['tahun'],
-                'warna'=>  $validateData['warna'],
-                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
-                'transmission'=>  $validateData['transmission'],
-                'mesin'=>  $validateData['mesin'],
-                'hargaRental'=>  $validateData['hargaRental'],
-                'deskripsi'=>  $validateData['deskripsi'],
+                'model' => $validateData['model'],
+                'nama' => $validateData['nama'],
+                'tahun' => $validateData['tahun'],
+                'warna' => $validateData['warna'],
+                'kapasitasPenumpang' => $validateData['kapasitasPenumpang'],
+                'transmission' => $validateData['transmission'],
+                'mesin' => $validateData['mesin'],
+                'hargaRental' => $validateData['hargaRental'],
+                'deskripsi' => $validateData['deskripsi'],
                 'statusKetersediaan' => false
             ]);
         } else {
@@ -185,15 +186,15 @@ class AdminController extends Controller
                 //'gambarMobil' => $validateData['gambarMobil'],
                 'platNomor' => $validateData['platNomor'],
                 'merk' => $validateData['merk'],
-                'model'=> $validateData['model'],
-                'nama'=>  $validateData['nama'],
-                'tahun'=>  $validateData['tahun'],
-                'warna'=>  $validateData['warna'],
-                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
-                'transmission'=>  $validateData['transmission'],
-                'mesin'=>  $validateData['mesin'],
-                'hargaRental'=>  $validateData['hargaRental'],
-                'deskripsi'=>  $validateData['deskripsi'],
+                'model' => $validateData['model'],
+                'nama' => $validateData['nama'],
+                'tahun' => $validateData['tahun'],
+                'warna' => $validateData['warna'],
+                'kapasitasPenumpang' => $validateData['kapasitasPenumpang'],
+                'transmission' => $validateData['transmission'],
+                'mesin' => $validateData['mesin'],
+                'hargaRental' => $validateData['hargaRental'],
+                'deskripsi' => $validateData['deskripsi'],
                 'statusKetersediaan' => false
             ]);
         }
@@ -228,6 +229,103 @@ class AdminController extends Controller
         ]);
     }
 
+
+    // KHUSUS UNTUK Customer PESANAN
+
+    public function formPesanan($mobilId)
+    {
+        $mobil = Mobil::find($mobilId);
+
+        return view('formPesanan')->with([
+            'user' => Auth::user(),
+            'mobil' => $mobil
+        ]);
+    }
+
+
+
+    //create new pesanan
+    public function storePesanan(Request $request, $mobilID)
+    {
+        $validateData = $request->validate([
+            'buktiTransfer' => 'nullable|image',
+            'nama' => 'required|string',
+            'alamat' => 'required|string',
+            'nomorTlp' => 'required|string',
+            'tanggalMulai' => 'required|date',
+            'tanggalBerakhir' => 'required|date',
+            'antarAmbil' => 'required|in:diantar,ambil_sendiri',
+            'alamatPengantaran' => 'nullable|required_if:antarAmbil,diantar|string',
+            'statusPesanan' => 'boolean',
+            'mobilID' => 'required'
+        ]);
+
+        // Menghitung durasi booking dalam hari
+        $tanggalMulai = new \DateTime($validateData['tanggalMulai']);
+        $tanggalBerakhir = new \DateTime($validateData['tanggalBerakhir']);
+        $durasi = $tanggalBerakhir->diff($tanggalMulai)->days;
+
+        // Mendapatkan mobil terkait untuk mengambil hargaRental
+        $mobil = Mobil::findOrFail($mobilID);
+
+
+        // Menghitung total pembayaran
+        $validateData['totalPembayaran'] = $mobil->hargaRental * $durasi;
+
+        if ($request->file('buktiTransfer')) {
+            $validateData['buktiTransfer'] = $request->file('buktiTransfer')->store('images', ['disk' => 'public']);
+
+            Pesanan::create([
+                'buktiTransfer' => $validateData['buktiTransfer'],
+                'nama' => $validateData['nama'],
+                'alamat' => $validateData['alamat'],
+                'nomorTlp' => $validateData['nomorTlp'],
+                'tanggalMulai' => $validateData['tanggalMulai'],
+                'tanggalBerakhir' => $validateData['tanggalBerakhir'],
+                'antarAmbil' => $validateData['antarAmbil'],
+                'alamatPengantaran' => $validateData['alamatPengantaran'] ?? null,
+                'totalPembayaran' => $validateData['totalPembayaran'],
+                'statusPesanan' => false, //artinya status pesanan pending
+                'mobilID' => $mobil->id
+            ]);
+        } else {
+            Mobil::create([
+                'nama' => $validateData['nama'],
+                'alamat' => $validateData['alamat'],
+                'nomorTlp' => $validateData['nomorTlp'],
+                'tanggalMulai' => $validateData['tanggalMulai'],
+                'tanggalBerakhir' => $validateData['tanggalBerakhir'],
+                'antarAmbil' => $validateData['antarAmbil'],
+                'alamatPengantaran' => $validateData['alamatPengantaran'] ?? null,
+                'totalPembayaran' => $validateData['totalPembayaran'],
+                'statusPesanan' => false, //artinya status pesanan pending
+                'mobilID' => $mobil->id
+            ]);
+        }
+
+        return redirect()->route('customerMobil', ['mobil' => $mobil->id]);
+    }
+
+    // UNTUK CUSTOMER BISA LIHAT PESANAN YANG DIBUAT
     
+
+    // UNTUK ADMIN BISA LIHAT PESANAN YANG MASUK
+    function adminPesanan()
+    {
+        $pesanan = Pesanan::all();
+        return view('adminPesanan')->with([
+            'user' => Auth::user(),
+            'pesanans' => $pesanan,
+        ]);
+    }
+
+    public function updateStatusPesanan(Request $request, $id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->statusPesanan = $request->input('statusPesanan');
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diupdate.');
+    }
 
 }

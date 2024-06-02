@@ -36,17 +36,20 @@
                     <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                         href="/">Home</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                        href="adminPesanan">Lihat Pesanan</a>
+                </li>
                 @auth
-                    @if (Auth::user()->role === 'admin')
+                    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'owner')
                         <!-- <li class="nav-item">
-                                    <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                        href="adminMobil">Unit Mobil</a>
-                                </li> -->
-                        <li class="nav-item">
+                                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                                                href="adminMobil">Unit Mobil</a>
+                                        </li> -->
+                        <!-- <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="adminPesanan">Pesanan Kostumer</a>
-                        </li>
+                                href="adminPesanan">Lihat Pesanan</a>
+                        </li> -->
                     @endif
 
                     @if (Auth::user()->role === 'owner')
@@ -54,18 +57,19 @@
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                                 href="adminMobil">Unit Mobil</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="adminPesanan">Pesanan Kostumer</a>
-                        </li>
+
                     @endif
 
                     @if (Auth::user()->role === 'customer')
                         <!-- Tautan khusus customer -->
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="customerMobil">Lihat Mobil</a>
+                                href="customerMobil">List Mobil</a>
                         </li>
+                        <!-- <li class="nav-item">
+                            <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
+                                href="customer_pesanan">Lihat Pesanan</a>
+                        </li> -->
                     @endif
                 @endauth
             </ul>
