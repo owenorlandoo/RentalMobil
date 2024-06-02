@@ -72,6 +72,7 @@
         </div>
     </nav>
 
+
     <!-- <div class="container mx-auto mt-5">
         <h1>Hello, selamat datang Customer</h1>
         <h1>{{ Auth::user()->name }}</h1>
@@ -79,6 +80,7 @@
     </div> -->
 
     <div class="container mx-auto mt-5">
+
         @yield('content')
     </div>
 </body>
