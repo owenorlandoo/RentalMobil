@@ -26,7 +26,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/customerMobil', [AdminController::class,'customerMobil'])->name('customerMobil');
     Route::get('/logout', [SesiController::class,'logout']);
 
-    //product feature CRUD
+    //form pesanan feature
+    Route::get('/admin/formPesanan}', [AdminController::class,'formPesanan'])->name('formPesanan');
+    Route::post('/admin/pesanan', [AdminController::class, 'storePesanan'])->name('pesanan_store');
+
+    //car feature CRUD
     Route::delete('/mobil_destroy/{mobil}', [AdminController::class, 'destroyMobil'])->name('mobil_destroy');
     Route::get('/admin/mobil/{mobil}/edit', [AdminController::class, 'editMobil'])->name('mobil_edit');
     Route::post('/admin/mobil', [AdminController::class, 'storeMobil'])->name('mobil_store');

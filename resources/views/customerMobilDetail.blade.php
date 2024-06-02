@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 @if($mobilDetail->statusKetersediaan)
-                    <button class="btn btn-primary" type="button">Book Now</button>
+                <button class="btn btn-primary" type="button" onclick="window.location='{{ route('formPesanan') }}'">Book Now</button>
                 @else
                     <button class="btn btn-danger" type="button" disabled>Unavailable</button>
                 @endif

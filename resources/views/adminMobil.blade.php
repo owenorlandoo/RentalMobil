@@ -14,14 +14,15 @@
         <h1 class="text-3xl font-bold mb-4 text-center">Unit Mobil</h1>
 
         <div class="col-sm-6">
-            <a href="#createCar" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Car</span></a>
+            <a href="#createCar" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+                <span>Add New Car</span></a>
         </div>
 
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-300">
                 <thead class="bg-gray-800 text-white">
                     <tr>
-                        
+
                         <th class="py-2 px-4">Foto Mobil</th>
                         <th class="py-2 px-4">Plat Nomor</th>
                         <th class="py-2 px-4">Nama</th>
@@ -40,46 +41,48 @@
                 </thead>
                 <tbody>
                     @foreach ($mobils as $mobil)
-                    <tr>
-                        <td>
-                            @if($mobil->gambarMobil)
-                            <img class="img-fluid w-25" src="{{ asset('storage/' . $mobil->gambarMobil) }}" alt="{{ $mobil->nama }}" />
+                        <tr>
+                            <td>
+                                @if($mobil->gambarMobil)
+                                    <img class="img-fluid w-25" src="{{ asset('storage/' . $mobil->gambarMobil) }}"
+                                        alt="{{ $mobil->nama }}" />
 
-                            @else
-                            <img class="img-fluid w-25" src="{{ asset('image/Not Available.jpeg') }}" alt="{{ $mobil->nama }}" />
-                            @endif
-                        </td>
-                        <td class="py-2 px-4">{{ $mobil->platNomor }}</td>
-                        <td class="py-2 px-4">{{ $mobil->nama }}</td>
-                        <td class="py-2 px-4">{{ $mobil->merk }}</td>
-                        <td class="py-2 px-4">{{ $mobil->model }}</td>
-                        <td class="py-2 px-4">{{ $mobil->tahun }}</td>
-                        <td class="py-2 px-4">{{ $mobil->warna }}</td>
-                        <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
-                        <td class="py-2 px-4">{{ $mobil->transmission }}</td>
-                        <td class="py-2 px-4">{{ $mobil->mesin }}</td>
-                        <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
-                        <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
-                        <td class="py-2 px-4 {{ $mobil->statusKetersediaan ? 'text-green-500' : 'text-red-500' }}">
-                            {{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}
-                        </td>
+                                @else
+                                    <img class="img-fluid w-25" src="{{ asset('image/Not Available.jpeg') }}"
+                                        alt="{{ $mobil->nama }}" />
+                                @endif
+                            </td>
+                            <td class="py-2 px-4">{{ $mobil->platNomor }}</td>
+                            <td class="py-2 px-4">{{ $mobil->nama }}</td>
+                            <td class="py-2 px-4">{{ $mobil->merk }}</td>
+                            <td class="py-2 px-4">{{ $mobil->model }}</td>
+                            <td class="py-2 px-4">{{ $mobil->tahun }}</td>
+                            <td class="py-2 px-4">{{ $mobil->warna }}</td>
+                            <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
+                            <td class="py-2 px-4">{{ $mobil->transmission }}</td>
+                            <td class="py-2 px-4">{{ $mobil->mesin }}</td>
+                            <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
+                            <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
+                            <td class="py-2 px-4 {{ $mobil->statusKetersediaan ? 'text-green-500' : 'text-red-500' }}">
+                                {{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}
+                            </td>
 
-                        
-                        <td>
-                            <div class="d-flex align-items-center">
-                            <a href="{{ route('mobil_edit', ['mobil' => $mobil->id]) }}" class="edit">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                </a>
-                                <form action="{{ route('mobil_destroy', ['mobil' => $mobil->id]) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="delete" data-toggle="modal" id="delete" name="delete">
-                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('mobil_edit', ['mobil' => $mobil->id]) }}" class="edit">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                    </a>
+                                    <form action="{{ route('mobil_destroy', ['mobil' => $mobil->id]) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="delete" data-toggle="modal" id="delete" name="delete">
+                                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -100,7 +103,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="gambarMobil" class="form-label">Upload Car Image</label>
-                        <input class="form-control" type="file" name="gambarMobil" id="gambarMobil" accept="image/jpg, image/png, image/jpeg" onchange="previewImage()">
+                        <input class="form-control" type="file" name="gambarMobil" id="gambarMobil"
+                            accept="image/jpg, image/png, image/jpeg" onchange="previewImage()">
                         <img class="img-preview img-fluid mb-3 col-sm-5" src="" alt="">
                     </div>
                     <div class="form-group">
@@ -171,19 +175,19 @@
 </div>
 
 {{-- javascript for input image preview --}}
-    <script>
-        function previewImage() {
-            const image = document.querySelector('#gambarMobil');
-            const imgPreview = document.querySelector('.img-preview');
+<script>
+    function previewImage() {
+        const image = document.querySelector('#gambarMobil');
+        const imgPreview = document.querySelector('.img-preview');
 
-            imgPreview.style.display = 'block';
+        imgPreview.style.display = 'block';
 
-            const ofReader = new FileReader();
-            ofReader.readAsDataURL(image.files[0]);
+        const ofReader = new FileReader();
+        ofReader.readAsDataURL(image.files[0]);
 
-            ofReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            }
+        ofReader.onload = function (oFREvent) {
+            imgPreview.src = oFREvent.target.result;
         }
-    </script>
+    }
+</script>
 @endsection
