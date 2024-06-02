@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MobilController;
+use App\Models\Mobil;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -41,9 +44,190 @@ class AdminController extends Controller
         return view('welcome')->with('user', Auth::user());
     }
 
+
+
+    // KHUSUS UNTUK ADMIN MOBIL
+
     function adminMobil()
     {
-        
-        return view('adminMobil')->with('user', Auth::user());
+        $mobil = Mobil::all();
+        return view('adminMobil')->with([
+            'user' => Auth::user(),
+            'mobils' => $mobil,
+        ]);
     }
+
+
+    function customerMobil()
+    {
+        $mobil = Mobil::all();
+        return view('customerMobil')->with([
+            'user' => Auth::user(),
+            'mobils' => $mobil,
+        ]);
+    }
+
+    public function createMobil()
+    {
+        //return view('adminMobilCreate');
+    }
+
+    public function storeMobil(Request $request)
+    {
+        $validateData = $request->validate([
+            'gambarMobil' => 'image',
+            'platNomor' => 'required|string',
+            'nama' => 'required|string',
+            'merk' => 'required|string',
+            'model' => 'required|string',
+            'tahun' => 'required|integer',
+            'warna' => 'required|string',
+            'kapasitasPenumpang' => 'required|integer',
+            'transmission' => 'required|string',
+            'mesin' => 'required|string',
+            'hargaRental' => 'required|integer',
+            'deskripsi' => 'required|string',
+            'statusKetersediaan' => 'boolean',
+        ]);
+
+        //$validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
+
+        if ($request->file('gambarMobil')) {
+            $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
+
+            Mobil::create([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => true
+            ]);
+        } else {
+            Mobil::create([
+                //'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => true
+            ]);
+        }
+
+        return redirect()->route('adminMobil');
+    }
+
+    public function editMobil(Mobil $mobil)
+    {
+        return view('adminMobilEdit', [
+            //'pagetitle' => 'Edit Mobil',
+            'mobilEdit' => $mobil
+        ]);
+    }
+
+    public function updateMobil(Request $request, Mobil $mobil)
+    {
+        $validateData = $request->validate([
+            'gambarMobil' => 'image',
+            'platNomor' => 'required|string',
+            'nama' => 'required|string',
+            'merk' => 'required|string',
+            'model' => 'required|string',
+            'tahun' => 'required|integer',
+            'warna' => 'required|string',
+            'kapasitasPenumpang' => 'required|integer',
+            'transmission' => 'required|string',
+            'mesin' => 'required|string',
+            'hargaRental' => 'required|integer',
+            'deskripsi' => 'required|string',
+            'statusKetersediaan' => 'boolean',
+        ]);
+
+        //$validateData['statusKetersediaan'] = $request->has('statusKetersediaan') ? 1 : 0;
+
+        if ($request->file('gambarMobil')) {
+            if ($mobil->gambarMobil) {
+                Storage::disk('public')->delete($mobil->gambarMobil);
+            }
+            $validateData['gambarMobil'] = $request->file('gambarMobil')->store('images', ['disk' => 'public']);
+
+            $mobil->update([
+                'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => false
+            ]);
+        } else {
+            $mobil->update([
+                //'gambarMobil' => $validateData['gambarMobil'],
+                'platNomor' => $validateData['platNomor'],
+                'merk' => $validateData['merk'],
+                'model'=> $validateData['model'],
+                'nama'=>  $validateData['nama'],
+                'tahun'=>  $validateData['tahun'],
+                'warna'=>  $validateData['warna'],
+                'kapasitasPenumpang'=>  $validateData['kapasitasPenumpang'],
+                'transmission'=>  $validateData['transmission'],
+                'mesin'=>  $validateData['mesin'],
+                'hargaRental'=>  $validateData['hargaRental'],
+                'deskripsi'=>  $validateData['deskripsi'],
+                'statusKetersediaan' => false
+            ]);
+        }
+
+        $mobil->update($validateData);
+
+        return redirect()->route('adminMobil');
+    }
+
+    public function destroyMobil(Mobil $mobil)
+    {
+        if ($mobil->gambarMobil) {
+            if (Storage::disk('public')->exists($mobil->gambarMobil)) {
+                Storage::disk('public')->delete($mobil->gambarMobil);
+            }
+        }
+        $mobil->delete();
+
+        return redirect()->route('adminMobil');
+    }
+
+    public function showMobilDetail($id)
+    {
+        $mobilDetail = Mobil::find($id);
+
+        if (!$mobilDetail) {
+            return redirect()->route('adminMobil')->with('error', 'Mobil not found.');
+        }
+
+        return view('customerMobilDetail', [
+            "mobilDetail" => $mobilDetail
+        ]);
+    }
+
+    
+
 }
