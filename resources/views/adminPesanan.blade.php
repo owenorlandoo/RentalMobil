@@ -33,7 +33,7 @@
                             <td class="py-2 px-4">{{ $pesanan->alamatPengantaran ?? 'N/A' }}</td>
                             <td class="py-2 px-4">{{ $pesanan->tanggalMulai }}</td>
                             <td class="py-2 px-4">{{ $pesanan->tanggalBerakhir }}</td>
-                            <td class="py-2 px-4">{{ number_format($pesanan->totalPembayaran, 0, ',', '.') }}</td>
+                            <td class="py-2 px-4">Rp{{ number_format($pesanan->totalPembayaran, 0, ',', '.') }}</td>
                             <td class="py-2 px-4">
                                 @if ($pesanan->buktiTransfer)
                                     <a href="{{ asset('storage/' . $pesanan->buktiTransfer) }}" target="_blank">View</a>

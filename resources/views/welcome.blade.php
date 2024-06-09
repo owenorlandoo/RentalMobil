@@ -4,9 +4,9 @@
 @section('content')
     <div class="container mx-auto mt-8">
         <div class="bg-white p-6 rounded-md shadow-md">
-            <h1 class="text-3xl font-bold mb-4 text-center">Page Table</h1>
+            <h1 class="text-3xl font-bold mb-4 text-center">Welcome to our car rental system</h1>
 
-            <div class="overflow-x-auto">
+            <!-- <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-gray-800 text-white">
                         <tr>
@@ -29,7 +29,7 @@
                         @endforeach --}}
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
 @endsection

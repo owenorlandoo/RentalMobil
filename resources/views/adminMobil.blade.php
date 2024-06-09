@@ -61,7 +61,7 @@
                             <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
                             <td class="py-2 px-4">{{ $mobil->transmission }}</td>
                             <td class="py-2 px-4">{{ $mobil->mesin }}</td>
-                            <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
+                            <td class="py-2 px-4">Rp{{ number_format($mobil->hargaRental, 0, ',', '.') }}</td>
                             <td class="py-2 px-4">{{ $mobil->deskripsi }}</td>
                             <td class="py-2 px-4 {{ $mobil->statusKetersediaan ? 'text-green-500' : 'text-red-500' }}">
                                 {{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}
@@ -145,7 +145,7 @@
                     </div>
                     <div class="form-group">
                         <label for="hargaRental" class="form-label">Harga Rental (per hari)</label>
-                        <input type="number" class="form-control" name="hargaRental" required>
+                        <input type="number" class="form-control " name="hargaRental" required>
                     </div>
                     <div class="form-group">
                         <label for="deskripsi" class="form-label">Car Description</label>
@@ -189,5 +189,8 @@
             imgPreview.src = oFREvent.target.result;
         }
     }
+
+
+     
 </script>
 @endsection

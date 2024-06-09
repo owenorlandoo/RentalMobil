@@ -36,7 +36,7 @@
                         @endif
                     </td>
                     <td class="py-2 px-4">{{ $mobil->kapasitasPenumpang }}</td>
-                    <td class="py-2 px-4">{{ $mobil->hargaRental }}</td>
+                    <td class="py-2 px-4">Rp{{ number_format($mobil->hargaRental, 0, ',', '.') }}</td>
                     <td class="py-2 px-4 {{ $mobil->statusKetersediaan ? 'text-green-500' : 'text-red-500' }}">
                         {{ $mobil->statusKetersediaan ? 'Available' : 'Unavailable' }}
                     </td>
@@ -46,7 +46,7 @@
                         <div class="d-flex align-items-center">
                             <button type="button" class="btn btn-primary"
                                 onclick="window.location.href='{{ route('mobilDetail', ['id' => $mobil->id]) }}'">
-                                See Details
+                                Menu Mobil
                             </button>
                         </div>
 

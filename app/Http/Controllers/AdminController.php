@@ -256,21 +256,24 @@ class AdminController extends Controller
             'tanggalBerakhir' => 'required|date',
             'antarAmbil' => 'required|in:diantar,ambil_sendiri',
             'alamatPengantaran' => 'nullable|required_if:antarAmbil,diantar|string',
+            'totalPembayaran' => 'required|integer',
             'statusPesanan' => 'boolean',
             'mobilID' => 'required'
         ]);
 
+        $mobil = Mobil::findOrFail($mobilID);
+        
         // Menghitung durasi booking dalam hari
-        $tanggalMulai = new \DateTime($validateData['tanggalMulai']);
-        $tanggalBerakhir = new \DateTime($validateData['tanggalBerakhir']);
-        $durasi = $tanggalBerakhir->diff($tanggalMulai)->days;
+        // $tanggalMulai = $validateData['tanggalMulai'];
+        // $tanggalBerakhir = $validateData['tanggalBerakhir'];
+        // $durasi = $tanggalBerakhir->diff($tanggalMulai)->days;
 
         // Mendapatkan mobil terkait untuk mengambil hargaRental
-        $mobil = Mobil::findOrFail($mobilID);
+        
 
 
         // Menghitung total pembayaran
-        $validateData['totalPembayaran'] = $mobil->hargaRental * $durasi;
+        // $validateData['totalPembayaran'] = $mobil->hargaRental * $durasi;
 
         if ($request->file('buktiTransfer')) {
             $validateData['buktiTransfer'] = $request->file('buktiTransfer')->store('images', ['disk' => 'public']);
@@ -289,7 +292,7 @@ class AdminController extends Controller
                 'mobilID' => $mobil->id
             ]);
         } else {
-            Mobil::create([
+            Pesanan::create([
                 'nama' => $validateData['nama'],
                 'alamat' => $validateData['alamat'],
                 'nomorTlp' => $validateData['nomorTlp'],
@@ -306,7 +309,6 @@ class AdminController extends Controller
         return redirect()->route('customerMobil', ['mobil' => $mobil->id]);
     }
 
-    // UNTUK CUSTOMER BISA LIHAT PESANAN YANG DIBUAT
     
 
     // UNTUK ADMIN BISA LIHAT PESANAN YANG MASUK
