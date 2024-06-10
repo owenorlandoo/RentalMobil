@@ -18,7 +18,7 @@
                         <a class="text-white hover:text-green-300 transition duration-300 ease-in-out hover:animate-pulse"
                             href="{{ route('login') }}">Login</a>
                     @endif
-
+{{--  --}}
                     @if (Route::has('register'))
                         <a class="text-white hover:text-green-300 transition duration-300 ease-in-out hover:animate-pulse"
                             href="{{ route('register') }}">Register</a>
