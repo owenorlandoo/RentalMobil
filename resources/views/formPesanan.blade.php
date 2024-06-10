@@ -56,7 +56,7 @@
 
         <div class="form-group">
             <label for="totalPembayaran">Total Pembayaran</label>
-            <input type="text" class="form-control" id="totalPembayaran" readonly>
+            <input type="text" class="form-control" id="totalPembayaran" name="totalPembayaran" readonly>
         </div>
     </div>
     <div class="form-group">

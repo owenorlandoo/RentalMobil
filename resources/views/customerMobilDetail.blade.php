@@ -40,7 +40,9 @@
                     <div class="medium font-italic text-muted">
                         Harga Rental (per hari):
                     </div>
-                    <div class="ml-2 p-1 bg-info text-white rounded">Rp{{ $mobilDetail->hargaRental }}</div>
+                    <div class="ml-2 p-1 bg-info text-white rounded">Rp{{ number_format($mobilDetail->hargaRental, 0, ',', '.') }}</div>
+
+                    
                 </div>
 
             </div>
@@ -91,7 +93,7 @@
                     </div>
                 </div>
                 @if($mobilDetail->statusKetersediaan)
-                <button class="btn btn-primary" type="button" onclick="window.location='{{ route('formPesanan', ['mobilId' => $mobilDetail->id]) }}'">Book Now</button>
+                <button class="btn btn-primary" type="button" onclick="window.location='{{ route('formPesanan', ['mobilId' => $mobilDetail->id]) }}'">Rental</button>
                 @else
                     <button class="btn btn-danger" type="button" disabled>Unavailable</button>
                 @endif

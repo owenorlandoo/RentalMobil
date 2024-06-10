@@ -32,10 +32,10 @@
                 @endguest
             </div>
             <ul class="flex space-x-4">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                         href="/">Home</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
                         href="adminPesanan">Lihat Pesanan</a>
@@ -64,7 +64,7 @@
                         <!-- Tautan khusus customer -->
                         <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
-                                href="customerMobil">List Mobil</a>
+                                href="customerMobil">Mobil</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="text-white hover:text-blue-300 transition duration-300 ease-in-out hover:animate-pulse"
